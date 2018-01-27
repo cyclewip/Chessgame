@@ -76,13 +76,12 @@ public class Board {
         List<Pos> availablePos = new ArrayList<>();
 
 
-        String s = units[0][1].getColor();
-        units[0][1].availableMoves(units[0][1], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
+        String s = units[1][0].getColor();
+        units[1][0].availableMoves(units[1][0], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
 
 
         int i = 0;
     }
-
     public String printBoard() {
         List<String> outPut = new ArrayList<>();
         String outPutString = "";
@@ -104,5 +103,4 @@ public class Board {
 //        System.out.println(units);
         return outPutString;
     }
-
 }
