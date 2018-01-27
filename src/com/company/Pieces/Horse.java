@@ -55,7 +55,7 @@ public class Horse extends Unit {
 //    }
 
     @Override
-    public List<Pos> createPotentialMoves(Unit unit) {
+    public List<Pos> createPotentialMoves(Unit unit , Unit[][] units) {
         availablePos = new ArrayList<>();
         int potentialX = -2;
         int potentialY = -1;

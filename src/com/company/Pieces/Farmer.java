@@ -29,7 +29,7 @@ public class Farmer extends Unit {
 //    }
 
     @Override
-    public List<Pos> createPotentialMoves(Unit unit) {
+    public List<Pos> createPotentialMoves(Unit unit , Unit[][] units) {
         availablePos = new ArrayList<>();
 
         String color = unit.getColor();

@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.Pieces.Farmer;
 import com.company.Pieces.Horse;
+import com.company.Pieces.Tower;
 import com.company.Pieces.Unit;
 
 import java.util.ArrayList;
@@ -37,23 +38,27 @@ public class Board {
         units[0][1].setColor("WHITE");
         units[0][1].pos = new Pos(0, 1);
 
-        units[2][5] = new Horse();
-        units[2][5].setColor("WHITE");
-        units[2][5].pos = new Pos(2, 5);
-
-            ////// TESTHORSE
-        units[4][4] = new Horse();
-        units[4][4].setColor("WHITE");
-        units[4][4].pos = new Pos(4, 4);
+        units[0][6] = new Horse();
+        units[0][6].setColor("WHITE");
+        units[0][6].pos = new Pos(2, 5);
 
 
         units[7][1] = new Horse();
-        units[7][1].setColor("WHITE");
+        units[7][1].setColor("BLACK");
         units[7][1].pos = new Pos(7, 1);
 
         units[7][6] = new Horse();
-        units[7][6].setColor("WHITE");
+        units[7][6].setColor("BLACK");
         units[7][6].pos = new Pos(7, 6);
+
+
+        units[3][1] = new Tower();
+        units[3][1].setColor("WHITE");
+        units[3][1].pos = new Pos(0, 0);
+
+        units[3][0] = new Tower();
+        units[3][0].setColor("WHITE");
+        units[3][0].pos = new Pos(3, 0);
 
         int i = 0;
     }
@@ -76,8 +81,8 @@ public class Board {
         List<Pos> availablePos = new ArrayList<>();
 
 
-        String s = units[1][0].getColor();
-        units[1][0].availableMoves(units[1][0], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
+        String s = units[3][0].getColor();
+        units[3][0].availableMoves(units[3][0], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
 
 
         int i = 0;
@@ -93,6 +98,8 @@ public class Board {
                         outPutString += "H";
                     else if (units[i][y].getType().contains("FARMER"))
                         outPutString += "F";
+                    else if (units[i][y].getType().contains("TOWER"))
+                        outPutString += "T";
                 } else {
                     outPutString += "0";
                 }

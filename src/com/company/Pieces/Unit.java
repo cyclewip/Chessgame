@@ -44,7 +44,7 @@ public abstract class Unit extends Pos {
         int currentPosY = unit.pos.getPositionY();
 
         List<Pos> potentialMoves = new ArrayList<>();
-        potentialMoves = createPotentialMoves(unit);    // CHECK ALL POTENTIAL MOVES A UNIT HAS
+        potentialMoves = createPotentialMoves(unit, units);    // CHECK ALL POTENTIAL MOVES A UNIT HAS
 
         for (int i = 0; i < potentialMoves.size(); i++) {
 
@@ -87,7 +87,7 @@ public abstract class Unit extends Pos {
 
 //    public abstract List<Pos> availableMoves(Unit unit, Unit[][] units, String type);
 
-    public abstract List<Pos> createPotentialMoves(Unit unit);
+    public abstract List<Pos> createPotentialMoves(Unit unit, Unit[][] units);
 
     public abstract String getType();
 
