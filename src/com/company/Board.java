@@ -37,22 +37,22 @@ public class Board {
         units[0][1].setColor("WHITE");
         units[0][1].pos = new Pos(0, 1);
 
-        units[0][6] = new Horse();
-        units[0][6].setColor("WHITE");
-        units[0][6].pos = new Pos(0, 6);
+        units[2][5] = new Horse();
+        units[2][5].setColor("WHITE");
+        units[2][5].pos = new Pos(2, 5);
 
-////// TESTHORSE
+            ////// TESTHORSE
         units[4][4] = new Horse();
         units[4][4].setColor("WHITE");
         units[4][4].pos = new Pos(4, 4);
 
 
         units[7][1] = new Horse();
-        units[7][1].setColor("BLACK");
+        units[7][1].setColor("WHITE");
         units[7][1].pos = new Pos(7, 1);
 
         units[7][6] = new Horse();
-        units[7][6].setColor("BLACK");
+        units[7][6].setColor("WHITE");
         units[7][6].pos = new Pos(7, 6);
 
         int i = 0;
@@ -77,7 +77,7 @@ public class Board {
 
 
         String s = units[0][1].getColor();
-        units[4][4].availableMoves(units[0][1], units, s);
+        units[0][1].availableMoves(units[0][1], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
 
 
         int i = 0;
