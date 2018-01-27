@@ -2,17 +2,25 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainArea extends JFrame {
 
     private JButton moveButton;
+    private JButton boardButton;
     private JLabel textLabel;
     private JTextField moveTextField;
     private JTextArea mapTextArea;
     private JScrollPane scrollPane;
 
-    public MainArea()  {
+    private Board board;
+
+    public MainArea() {
         createView();
+        board = new Board();
+        board.populateBoard();
+
 
         setTitle("Text area test");
 
@@ -32,15 +40,34 @@ public class MainArea extends JFrame {
 
         moveButton = new JButton("Make a move");
         panel.add(moveButton);
+        moveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.checkMovement();
+                mapTextArea.setText(board.printBoard());
+            }
+        });
 
+        boardButton = new JButton("Check board");
+        panel.add(boardButton);
 
-        moveTextField = new JTextField(15);
+        boardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                mapTextArea.setText(board.printBoard());
+            }
+        });
+
+        moveTextField = new JTextField(8);
         panel.add(moveTextField);
 
         mapTextArea = new JTextArea();
         mapTextArea.setEditable(false);
         mapTextArea.setLineWrap(true);
         mapTextArea.setWrapStyleWord(true);
+        mapTextArea.setColumns(8);
+        mapTextArea.setRows(8);
 
         JScrollPane scrollPane = new JScrollPane(mapTextArea);
         scrollPane.setPreferredSize(new Dimension(350, 90));

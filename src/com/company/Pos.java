@@ -5,10 +5,14 @@ public class Pos {
     private int positionX;
     private int positionY;
 
-    public Pos(int positionX, int positionY){
 
+    public Pos( int positionX,int positionY ) {
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
+
     public Pos(){
+
     }
 
     public int getPositionX() {
