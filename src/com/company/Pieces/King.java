@@ -8,6 +8,7 @@ import java.util.List;
 public class King extends Unit {
 
     String type = "KING";
+
     public String getType() {
         return type;
     }
@@ -57,89 +58,29 @@ public class King extends Unit {
         availablePos = new ArrayList<>();
         int potentialX;
         int potentialY;
-        int currentPosX = unit.pos.getPositionX();
-        int currentPosY = unit.pos.getPositionY();
-        String currentColor = unit.getColor();
 
-        for (int i = 1; i < 8; i++) {   /// BÖRJAR PÅ 1 DÅ EN MOVE UTAN NÅGOT VÄRDE INTE E LÖN O GÖRA
-            potentialX = i;
-            potentialY = 0;
-            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
+        String color = unit.getColor();
 
-                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
-                    availablePos.add(new Pos(potentialX, potentialY));
-                } else {
-                    String a = "finns här annars blir de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
-                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
-                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
-                        availablePos.add(new Pos(potentialX, potentialY));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                }
-            }
-        }
-        for (int i = 1; i < 8; i++) {
-            potentialX = -i;
-            potentialY = 0;
-            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
+        potentialX = -1;
+        potentialY = -1;
+        availablePos.add(new Pos(potentialX, potentialY));
+        potentialX = -1;
+        potentialY = 1;
+        availablePos.add(new Pos(potentialX, potentialY));
+        potentialX = -1;
+        potentialY = 0;
+        availablePos.add(new Pos(potentialX, potentialY));
 
-                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
-                    availablePos.add(new Pos(potentialX, potentialY));
-                } else {
-                    String a = "finns härnnars blr de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
-                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
-                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
-                        availablePos.add(new Pos(potentialX, potentialY));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                }
-            }
-        }
-        for (int i = 1; i < 8; i++) {
-            potentialX = 0;
-            potentialY = i;
-            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
-                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
-                    availablePos.add(new Pos(potentialX, potentialY));
-                } else {
-                    String a = "finns härnars blir de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
-                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
-                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
-                        availablePos.add(new Pos(potentialX, potentialY));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                }
-            }
-        }
-        for (int i = 1; i < 8; i++) {
-            potentialX = 0;
-            potentialY = -i;
-            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
-                ; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
-                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
-                    availablePos.add(new Pos(potentialX, potentialY));
-                } else {
-                    String a = "finns  annars blir de dulicate";
-                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
-                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
-                        availablePos.add(new Pos(potentialX, potentialY));
-                        break;
-                    }
-                    else{
-                        break;
-                    }
-                }
-            }
-        }
+        potentialX = 1;
+        potentialY = -1;
+        availablePos.add(new Pos(potentialX, potentialY));
+        potentialX = 1;
+        potentialY = 1;
+        availablePos.add(new Pos(potentialX, potentialY));
+        potentialX = 1;
+        potentialY = 0;
+        availablePos.add(new Pos(potentialX, potentialY));
+
         return availablePos;
     }
 }

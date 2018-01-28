@@ -14,7 +14,6 @@ public class Board {
         for (int i = 0; i < units.length; i++) {
             for (int y = 0; y < units.length; y++) {
                 units[i][y] = null;
-
             }
         }
         for (int i = 1; i < 2; i++) {
@@ -22,7 +21,6 @@ public class Board {
                 units[i][y] = new Pawn();
                 units[i][y].setColor("WHITE");
                 units[i][y].pos = new Pos(i, y);
-
             }
         }
         for (int i = 6; i < 7; i++) {
@@ -32,39 +30,75 @@ public class Board {
                 units[i][y].pos = new Pos(i, y);
             }
         }
+
+        /////////// KNIGHTS //////////////////
         units[0][1] = new Knight();
         units[0][1].setColor("WHITE");
         units[0][1].pos = new Pos(0, 1);
-
         units[0][6] = new Knight();
         units[0][6].setColor("WHITE");
-        units[0][6].pos = new Pos(2, 5);
-
+        units[0][6].pos = new Pos(0, 6);
 
         units[7][1] = new Knight();
         units[7][1].setColor("BLACK");
         units[7][1].pos = new Pos(7, 1);
-
         units[7][6] = new Knight();
         units[7][6].setColor("BLACK");
         units[7][6].pos = new Pos(7, 6);
+        /////////// KNIGHTS //////////////////
 
+        /////////// RUNNERS //////////////////
+        units[0][2] = new Runner();
+        units[0][2].setColor("WHITE");
+        units[0][2].pos = new Pos(0, 2);
+        units[0][5] = new Runner();
+        units[0][5].setColor("WHITE");
+        units[0][5].pos = new Pos(0, 5);
 
-        units[3][1] = new Tower();
-        units[3][1].setColor("WHITE");
-        units[3][1].pos = new Pos(0, 0);
+        units[7][2] = new Runner();
+        units[7][2].setColor("BLACK");
+        units[7][2].pos = new Pos(7, 2);
+        units[7][5] = new Runner();
+        units[7][5].setColor("BLACK");
+        units[7][5].pos = new Pos(7, 5);
+        /////////// RUNNERS //////////////////
 
-        units[3][0] = new Tower();
-        units[3][0].setColor("WHITE");
-        units[3][0].pos = new Pos(3, 0);
+        /////////// TOWERS //////////////////
+        units[0][0] = new Tower();
+        units[0][0].setColor("WHITE");
+        units[0][0].pos = new Pos(0, 0);
+        units[0][7] = new Tower();
+        units[0][7].setColor("WHITE");
+        units[0][7].pos = new Pos(0,7);
 
-        units[5][5] = new Queen();
-        units[5][5].setColor("WHITE");
-        units[5][5].pos = new Pos(5, 5);
+        units[7][7] = new Tower();
+        units[7][7].setColor("BLACK");
+        units[7][7].pos = new Pos(7, 7);
+        units[7][0] = new Tower();
+        units[7][0].setColor("BLACK");
+        units[7][0].pos = new Pos(7,0);
+        /////////// TOWERS //////////////////
+
+        /////////// QUEENS //////////////////
+        units[7][3] = new Queen();
+        units[7][3].setColor("BLACK");
+        units[7][3].pos = new Pos(7,3);
+        units[0][4] = new Queen();
+        units[0][4].setColor("WHITE");
+        units[0][4].pos = new Pos(0, 4);
+        /////////// QUEENS //////////////////
+
+        /////////// KINGS //////////////////
+        units[0][3] = new King();
+        units[0][3].setColor("WHITE");
+        units[0][3].pos = new Pos(0,3);
+        units[7][4] = new King();
+        units[7][4].setColor("BLACK");
+        units[7][4].pos = new Pos(7,4);
+        /////////// KINGS //////////////////
 
         int i = 0;
     }
-
 
     public void checkMovement() {
         Random r = new Random();
@@ -93,30 +127,35 @@ public class Board {
             for (int y = 0; y < units.length; y++) {
                 if (units[i][y] != null) {
                     String type = units[i][y].getType();    // GET TYPE OF UNIT
-                    if (type.contains("QUEEN")) {           // IF ITS A QUEEN, (THIS PARTICULAR MOVE)
+                    String color = units[i][y].getColor();    // GET COLOR OF UNIT
+                    if (type.contains("QUEEN") && color.contains("BLACK") ) {           // IF ITS A QUEEN, (THIS PARTICULAR MOVE)
 
                         String s = units[i][y].getColor();
                         availableMoves = units[i][y].availableMoves(units[i][y], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
-                        whichMove = r.nextInt(availableMoves.size());       /// PICKS A RANDOM MOVE FROM AVAILABLE MOVES
+                        if(availableMoves.size() > 0){
+                            whichMove = r.nextInt(availableMoves.size());       /// PICKS A RANDOM MOVE FROM AVAILABLE MOVES
 
-                        int newPosX = availableMoves.get(whichMove).getPositionX();       // GETS A MOVES POSITIONS
-                        int newPosY = availableMoves.get(whichMove).getPositionY();
-                        units = units[i][y].move(newPosX, newPosY, units[i][y], units); /// SET BOARD TO VALUE AFTER MOVE
-                        foundUnit = true;           /// CHECKS IF THE UNIT HAS BEEN FOUND
-                        break;
+                            int newPosX = availableMoves.get(whichMove).getPositionX();       // GETS A MOVES POSITIONS
+                            int newPosY = availableMoves.get(whichMove).getPositionY();
+                            units = units[i][y].move(newPosX, newPosY, units[i][y], units); /// SET BOARD TO VALUE AFTER MOVE
+                            foundUnit = true;           /// CHECKS IF THE UNIT HAS BEEN FOUND
+                            break;
+                        }
+                        else{
+                            System.out.println("No available moves to make");
+                        }
+
                     }
 //                    units[i][y].move(-1, 0, units[i][y], units);
 //
 //                    units[i - 1][y] = units[i][y];
 //                    units[i - 1][y].setPositionX(units[i][y].getPositionX());
 //                    units[i][y] = null;
-
                 }
             }
             if (foundUnit)
                 break;
         }
-
         int i = 0;
     }
 
