@@ -5,8 +5,9 @@ import com.company.Pos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tower extends Unit {
-    String type = "TOWER";
+public class Queen extends Unit {
+    String type = "QUEEN";
+
     public String getType() {
         return type;
     }
@@ -15,7 +16,7 @@ public class Tower extends Unit {
         this.type = type;
     }
 
-    public Tower() {
+    public Queen() {
 
     }
 
@@ -68,13 +69,12 @@ public class Tower extends Unit {
                 if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
                     availablePos.add(new Pos(potentialX, potentialY));
                 } else {
-                    String a = "finns här annars blir de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                    String a = "finns hr annars blir de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
                     String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
                     if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
                         availablePos.add(new Pos(potentialX, potentialY));
                         break;
-                    }
-                    else{
+                    } else {
                         break;
                     }
                 }
@@ -88,13 +88,12 @@ public class Tower extends Unit {
                 if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
                     availablePos.add(new Pos(potentialX, potentialY));
                 } else {
-                    String a = "finns härnnars blr de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                    String a = "finns härnars blr de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
                     String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
                     if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
                         availablePos.add(new Pos(potentialX, potentialY));
                         break;
-                    }
-                    else{
+                    } else {
                         break;
                     }
                 }
@@ -107,13 +106,12 @@ public class Tower extends Unit {
                 if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
                     availablePos.add(new Pos(potentialX, potentialY));
                 } else {
-                    String a = "finns härnars blir de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                    String a = "finns hänars blir de dulicate"; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
                     String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
                     if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
                         availablePos.add(new Pos(potentialX, potentialY));
                         break;
-                    }
-                    else{
+                    } else {
                         break;
                     }
                 }
@@ -123,21 +121,108 @@ public class Tower extends Unit {
             potentialX = 0;
             potentialY = -i;
             if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
-                ; /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
                 if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
                     availablePos.add(new Pos(potentialX, potentialY));
                 } else {
-                    String a = "finns  annars blir de dulicate";
+                    String a = "finns  nnars blir de dulicate";
                     String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
                     if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
                         availablePos.add(new Pos(potentialX, potentialY));
                         break;
-                    }
-                    else{
+                    } else {
                         break;
                     }
                 }
             }
+        }
+        /////////////////////////// FOR RUNNING TO SIDE + UP/DOWN
+        for (int i = 1; i < 8; i++) {
+
+            potentialX = i;
+            potentialY = i;
+            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
+                /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
+                    availablePos.add(new Pos(potentialX, potentialY));
+                } else {
+                    String a = "finns  nnar blir de dulicate";
+                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
+                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
+                        availablePos.add(new Pos(potentialX, potentialY));
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+        }
+        /////////////////////////// FOR RUNNING TO SIDE + UP/DOWN
+        for (int i = 1; i < 8; i++) {
+
+            potentialX = i;
+            potentialY = -i;
+            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
+                /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
+                    availablePos.add(new Pos(potentialX, potentialY));
+                } else {
+                    String a = "finns nnar blir de dulicate";
+                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
+                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
+                        availablePos.add(new Pos(potentialX, potentialY));
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+        }
+        /////////////////////////// FOR RUNNING TO SIDE + UP/DOWN
+        for (int i = 1; i < 8; i++) {
+
+            potentialX = -i;
+            potentialY = -i;
+            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
+                /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
+                    availablePos.add(new Pos(potentialX, potentialY));
+                } else {
+                    String a = "finns  nar blir de dulicate";
+                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
+                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
+                        availablePos.add(new Pos(potentialX, potentialY));
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+
+            }
+        }
+        /////////////////////////// FOR RUNNING TO SIDE + UP/DOWN
+        for (int i = 1; i < 8; i++) {
+
+            potentialX = -i;
+            potentialY = i;
+            if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
+                /// FINNS FÖR ATT SLUTA FÅ KOD O "VARA DUPLICERAD"
+                if (units[currentPosX + potentialX][currentPosY + potentialY] == null) {
+                    availablePos.add(new Pos(potentialX, potentialY));
+                } else {
+                    String a = "finns  nnar bli de dulicate";
+                    String potentialColor = units[currentPosX + potentialX][currentPosY + potentialY].getColor();   /// FÄRG FRÅN POTENTIAL POSITION
+                    if (!currentColor.contains(potentialColor)) {   /// OM DE INTE ÄR SAMMA FÄRG
+                        availablePos.add(new Pos(potentialX, potentialY));
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
         }
         return availablePos;
     }

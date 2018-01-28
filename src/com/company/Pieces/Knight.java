@@ -5,7 +5,7 @@ import com.company.Pos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Horse extends Unit {
+public class Knight extends Unit {
 
 
     String type = "HORSE";
@@ -18,7 +18,7 @@ public class Horse extends Unit {
         this.type = type;
     }
 
-    public Horse() {
+    public Knight() {
 
     }
 

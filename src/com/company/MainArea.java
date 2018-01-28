@@ -70,7 +70,7 @@ public class MainArea extends JFrame {
         mapTextArea.setRows(8);
 
         JScrollPane scrollPane = new JScrollPane(mapTextArea);
-        scrollPane.setPreferredSize(new Dimension(350, 90));
+        scrollPane.setPreferredSize(new Dimension(350, 150));
         panel.add(scrollPane);
     }
 

@@ -16,14 +16,14 @@ public abstract class Unit extends Pos {
     public Unit[][] move(int newPosX, int newPosY, Unit unit, Unit[][] units) {
         int x = unit.pos.getPositionX();
         int y = unit.pos.getPositionY();
+        int nextPosX = x + newPosX;
+        int nextPosY = y + newPosY;
 
-        if (units[x + newPosX][y + newPosY] == null) {
             units[x + newPosX][y + newPosY] = units[x][y];
-
-            units[x + newPosX][y + newPosY].setPositionX(units[x][y].pos.getPositionX());
-            units[x + newPosX][y + newPosY].setPositionY(units[x][y].pos.getPositionY());
+            units[x + newPosX][y + newPosY].pos.setPositionX(nextPosX);
+            units[x + newPosX][y + newPosY].pos.setPositionY(nextPosY);
             units[x][y] = null;
-        }
+
         return units;
     }
 
@@ -47,14 +47,15 @@ public abstract class Unit extends Pos {
         potentialMoves = createPotentialMoves(unit, units);    // CHECK ALL POTENTIAL MOVES A UNIT HAS
 
         for (int i = 0; i < potentialMoves.size(); i++) {
-
+            String potentialColor = "";
+            String currentColor = "";
             if (inBounds(potentialMoves.get(i).getPositionX() + currentPosX, potentialMoves.get(i).getPositionY() + currentPosY)) {     // IS THE POSITION WITHING RANGE
                 int potentialX = potentialMoves.get(i).getPositionX() + currentPosX;    /// JUST TO SHORTEN DOWN CODE A BIT FOR NEXT IF
                 int potentialY = potentialMoves.get(i).getPositionY() + currentPosY;    /// SAVES POTENTIAL MOVE
                 if(units[potentialX][potentialY] != null){     // IF THERE IS SOMETHING ON THE SPOT
-                    String potentialColor = units[potentialX][potentialY].color;        /// SAVES POTENTIAL COLOR
-                    String currentColor = units[currentPosX][currentPosY].color;        /// SAVES CURRENT COLOR
-                    if (!potentialColor.contains(currentColor))                               /// IF THEY ARE THE SAME COLOR, UNIT CANNOT MOVE INTO THE SAME TYPE
+//                     potentialColor = units[potentialX][potentialY].getColor();        /// SAVES POTENTIAL COLOR
+//                     currentColor = units[currentPosX][currentPosY].getColor();        /// SAVES CURRENT COLOR
+//                    if (!potentialColor.contains(currentColor))                               /// IF THEY ARE THE SAME COLOR, UNIT CANNOT MOVE INTO THE SAME TYPE
                         availablePos.add(potentialMoves.get(i));
                 }
                 else{

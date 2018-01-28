@@ -5,8 +5,9 @@ import com.company.Pos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tower extends Unit {
-    String type = "TOWER";
+public class King extends Unit {
+
+    String type = "KING";
     public String getType() {
         return type;
     }
@@ -15,7 +16,7 @@ public class Tower extends Unit {
         this.type = type;
     }
 
-    public Tower() {
+    public King() {
 
     }
 

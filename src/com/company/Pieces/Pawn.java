@@ -5,11 +5,11 @@ import com.company.Pos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Farmer extends Unit {
+public class Pawn extends Unit {
 
     String type = "FARMER";
 
-    public Farmer() {
+    public Pawn() {
 
     }
 

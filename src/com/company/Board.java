@@ -1,12 +1,10 @@
 package com.company;
 
-import com.company.Pieces.Farmer;
-import com.company.Pieces.Horse;
-import com.company.Pieces.Tower;
-import com.company.Pieces.Unit;
+import com.company.Pieces.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Board {
     //    boolean[][] board = new boolean[8][8];
@@ -21,7 +19,7 @@ public class Board {
         }
         for (int i = 1; i < 2; i++) {
             for (int y = 0; y < units.length; y++) {
-                units[i][y] = new Farmer();
+                units[i][y] = new Pawn();
                 units[i][y].setColor("WHITE");
                 units[i][y].pos = new Pos(i, y);
 
@@ -29,25 +27,25 @@ public class Board {
         }
         for (int i = 6; i < 7; i++) {
             for (int y = 0; y < units.length; y++) {
-                units[i][y] = new Farmer();
+                units[i][y] = new Pawn();
                 units[i][y].setColor("BLACK");
                 units[i][y].pos = new Pos(i, y);
             }
         }
-        units[0][1] = new Horse();
+        units[0][1] = new Knight();
         units[0][1].setColor("WHITE");
         units[0][1].pos = new Pos(0, 1);
 
-        units[0][6] = new Horse();
+        units[0][6] = new Knight();
         units[0][6].setColor("WHITE");
         units[0][6].pos = new Pos(2, 5);
 
 
-        units[7][1] = new Horse();
+        units[7][1] = new Knight();
         units[7][1].setColor("BLACK");
         units[7][1].pos = new Pos(7, 1);
 
-        units[7][6] = new Horse();
+        units[7][6] = new Knight();
         units[7][6].setColor("BLACK");
         units[7][6].pos = new Pos(7, 6);
 
@@ -60,33 +58,68 @@ public class Board {
         units[3][0].setColor("WHITE");
         units[3][0].pos = new Pos(3, 0);
 
+        units[5][5] = new Queen();
+        units[5][5].setColor("WHITE");
+        units[5][5].pos = new Pos(5, 5);
+
         int i = 0;
     }
 
 
     public void checkMovement() {
-        for (int i = 6; i < 7; i++) {
+        Random r = new Random();
+//        for (int i = 6; i < 7; i++) {
+//            for (int y = 0; y < units.length; y++) {
+//                if (units[i][y] != null) {
+//                    units[i][y].move(-1, 0, units[i][y], units);
+//
+////                    units[i - 1][y] = units[i][y];
+////                    units[i - 1][y].setPositionX(  units[i][y].getPositionX());
+////                    units[i][y] = null;
+//
+//                }
+//            }
+//        }
+
+
+//        String s = units[5][5].getColor();
+//        availableMoves = units[5][5].availableMoves(units[5][5], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
+
+
+        List<Pos> availableMoves = new ArrayList<>();
+        int whichMove;
+        for (int i = 0; i < units.length; i++) {
+            boolean foundUnit = false;
             for (int y = 0; y < units.length; y++) {
                 if (units[i][y] != null) {
-                    units[i][y].move(-1, 0, units[i][y], units);
+                    String type = units[i][y].getType();    // GET TYPE OF UNIT
+                    if (type.contains("QUEEN")) {           // IF ITS A QUEEN, (THIS PARTICULAR MOVE)
 
+                        String s = units[i][y].getColor();
+                        availableMoves = units[i][y].availableMoves(units[i][y], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
+                        whichMove = r.nextInt(availableMoves.size());       /// PICKS A RANDOM MOVE FROM AVAILABLE MOVES
+
+                        int newPosX = availableMoves.get(whichMove).getPositionX();       // GETS A MOVES POSITIONS
+                        int newPosY = availableMoves.get(whichMove).getPositionY();
+                        units = units[i][y].move(newPosX, newPosY, units[i][y], units); /// SET BOARD TO VALUE AFTER MOVE
+                        foundUnit = true;           /// CHECKS IF THE UNIT HAS BEEN FOUND
+                        break;
+                    }
+//                    units[i][y].move(-1, 0, units[i][y], units);
+//
 //                    units[i - 1][y] = units[i][y];
-//                    units[i - 1][y].setPositionX(  units[i][y].getPositionX());
+//                    units[i - 1][y].setPositionX(units[i][y].getPositionX());
 //                    units[i][y] = null;
 
                 }
             }
+            if (foundUnit)
+                break;
         }
-
-        List<Pos> availablePos = new ArrayList<>();
-
-
-        String s = units[3][0].getColor();
-        units[3][0].availableMoves(units[3][0], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
-
 
         int i = 0;
     }
+
     public String printBoard() {
         List<String> outPut = new ArrayList<>();
         String outPutString = "";
@@ -95,13 +128,19 @@ public class Board {
 
                 if (units[i][y] != null) {
                     if (units[i][y].getType().contains("HORSE"))
-                        outPutString += "H";
+                        outPutString += " H";
                     else if (units[i][y].getType().contains("FARMER"))
-                        outPutString += "F";
+                        outPutString += " F";
                     else if (units[i][y].getType().contains("TOWER"))
-                        outPutString += "T";
+                        outPutString += " T";
+                    else if (units[i][y].getType().contains("QUEEN"))
+                        outPutString += " Q";
+                    else if (units[i][y].getType().contains("KING"))
+                        outPutString += " K";
+                    else if (units[i][y].getType().contains("RUNNER"))
+                        outPutString += " R";
                 } else {
-                    outPutString += "0";
+                    outPutString += " 0";
                 }
                 if (y == 7)
                     outPutString += "\n";
