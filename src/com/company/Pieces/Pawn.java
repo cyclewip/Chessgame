@@ -8,11 +8,17 @@ import java.util.List;
 public class Pawn extends Unit {
 
     String type = "FARMER";
-
+    int killValue = 0;
     public Pawn() {
 
     }
+    public int getKillValue() {
+        return killValue;
+    }
 
+    public void setKillValue(int killValue) {
+        this.killValue = killValue;
+    }
 
 //    @Override
 //    public List<Pos> availableMoves(Unit unit, Unit[][] units, String type) {

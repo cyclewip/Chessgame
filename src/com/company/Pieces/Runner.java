@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Runner extends Unit {
     String type = "RUNNER";
+    int killValue = 3;
+
     public String getType() {
         return type;
     }
@@ -14,7 +16,13 @@ public class Runner extends Unit {
     public void setType(String type) {
         this.type = type;
     }
+    public int getKillValue() {
+        return killValue;
+    }
 
+    public void setKillValue(int killValue) {
+        this.killValue = killValue;
+    }
     public Runner() {
 
     }

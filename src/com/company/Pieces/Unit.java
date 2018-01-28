@@ -10,8 +10,26 @@ public abstract class Unit extends Pos {
     public Pos pos;
     String type = "";
     String color = "";
+    int killValue;
     List<Pos> availablePos;
+    List<Pos> availableKills = new ArrayList<>();
 
+    public List<Pos> getAvailableKills() {
+        return availableKills;
+    }
+    public void setAvailableKills(List<Pos> availableKills) {
+        this.availableKills = availableKills;
+    }
+    public Pos getPos() {
+        return pos;
+    }
+    public void setPos(Pos pos) {
+        this.pos = pos;
+    }
+
+    public abstract int getKillValue();
+
+    public abstract void setKillValue(int killValue);
 
     public Unit[][] move(int newPosX, int newPosY, Unit unit, Unit[][] units) {
         int x = unit.pos.getPositionX();
@@ -53,10 +71,11 @@ public abstract class Unit extends Pos {
                 int potentialX = potentialMoves.get(i).getPositionX() + currentPosX;    /// JUST TO SHORTEN DOWN CODE A BIT FOR NEXT IF
                 int potentialY = potentialMoves.get(i).getPositionY() + currentPosY;    /// SAVES POTENTIAL MOVE
                 if(units[potentialX][potentialY] != null){     // IF THERE IS SOMETHING ON THE SPOT
-//                     potentialColor = units[potentialX][potentialY].getColor();        /// SAVES POTENTIAL COLOR
-//                     currentColor = units[currentPosX][currentPosY].getColor();        /// SAVES CURRENT COLOR
-//                    if (!potentialColor.contains(currentColor))                               /// IF THEY ARE THE SAME COLOR, UNIT CANNOT MOVE INTO THE SAME TYPE
-                        availablePos.add(potentialMoves.get(i));
+                     potentialColor = units[potentialX][potentialY].getColor();        /// SAVES POTENTIAL COLOR
+                     currentColor = units[currentPosX][currentPosY].getColor();        /// SAVES CURRENT COLOR
+                    if (!potentialColor.contains(currentColor))                               /// IF THEY ARE THE SAME COLOR, UNIT CANNOT MOVE INTO THE SAME TYPE
+                        availablePos.add(potentialMoves.get(i));            // ADDS A MOVE TO POTENTIAL (WILL CHANGE TO ONLY CONTAIN MOVES THAT ISNT KILLS
+                        availableKills.add(potentialMoves.get(i));          // HERE THE KILL SHOULD BE
                 }
                 else{
                     availablePos.add(potentialMoves.get(i));
@@ -65,8 +84,6 @@ public abstract class Unit extends Pos {
                 /// FIND WHICH MOVES ARE OKAY TO DO FOR NOW
             }
         }
-
-
         return availablePos;    // RETURN THEM MOVES
     }
 

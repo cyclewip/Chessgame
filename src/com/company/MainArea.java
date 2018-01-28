@@ -9,6 +9,7 @@ public class MainArea extends JFrame {
 
     private JButton moveButton;
     private JButton boardButton;
+    private JButton startButton;
     private JLabel textLabel;
     private JTextField moveTextField;
     private JTextArea mapTextArea;
@@ -35,15 +36,22 @@ public class MainArea extends JFrame {
         getContentPane().add(panel);
 
 
-        textLabel = new JLabel("Move player");
+        textLabel = new JLabel("Chess game");
         panel.add(textLabel);
 
-        moveButton = new JButton("Make a move");
+        moveButton = new JButton("White Turn");
         panel.add(moveButton);
         moveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                board.checkMovement();
+//                board.checkMovement();
+
+                if(board.playerWhite.isMyTurn())
+                    moveButton.setText("Black");
+                else
+                    moveButton.setText("White");
+                board.playerTurn();
+
                 mapTextArea.setText(board.printBoard());
             }
         });

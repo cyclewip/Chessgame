@@ -8,7 +8,7 @@ import java.util.List;
 public class King extends Unit {
 
     String type = "KING";
-
+    int killValue = 5;
     public String getType() {
         return type;
     }
@@ -16,7 +16,13 @@ public class King extends Unit {
     public void setType(String type) {
         this.type = type;
     }
+    public int getKillValue() {
+        return killValue;
+    }
 
+    public void setKillValue(int killValue) {
+        this.killValue = killValue;
+    }
     public King() {
 
     }
