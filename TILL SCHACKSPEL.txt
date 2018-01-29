@@ -1,0 +1,20 @@
+varje pjäs, egen logik
+
+kolla och spara alla pjäsers move
+
+kolla så players fungerar med 
+
+
+AI LOGIK: 
+Detta sker för alla pjäser
+Spara alla pjäsers potentiella positioner ->> (om detta väljs, föredra position framåt eller åt sidan)
+
+
+Spara alla pjäser mördarpositioner
+jämför vilken mördarposition som tar bästa unit
+
+
+Går de att döda fiender, isåfall ta bästa unit
+Är jag i fara efter jag dödat fiende
+
+prioritering: högre siffa för bättre unit

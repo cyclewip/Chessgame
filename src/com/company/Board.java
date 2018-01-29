@@ -2,16 +2,14 @@ package com.company;
 
 import com.company.Pieces.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Board {
     //    boolean[][] board = new boolean[8][8];
     Unit[][] units = new Unit[8][8];
     Player playerWhite = new Player();
     Player playerBlack = new Player();
-   private String whichPlayer;
+    private String whichPlayer;
 
     public void populateBoard() {
         playerWhite.setType("WHITE");
@@ -89,9 +87,9 @@ public class Board {
         /////////// TOWERS //////////////////
 
         /////////// QUEENS //////////////////
-        units[7][3] = new Queen();
-        units[7][3].setColor("BLACK");
-        units[7][3].pos = new Pos(7, 3);
+        units[5][3] = new Queen();
+        units[5][3].setColor("BLACK");
+        units[5][3].pos = new Pos(5, 3);
         units[2][4] = new Queen();
         units[2][4].setColor("WHITE");
         units[2][4].pos = new Pos(2, 4);
@@ -109,14 +107,13 @@ public class Board {
         int i = 0;
     }
 
-    public void playerTurn(){
-        if(playerWhite.isMyTurn()){
+    public void playerTurn() {
+        if (playerWhite.isMyTurn()) {
             whichPlayer = "W";
             checkMovement(whichPlayer);
             playerWhite.setMyTurn(false);
             playerBlack.setMyTurn(true);
-        }
-        else if(playerBlack.isMyTurn()){
+        } else if (playerBlack.isMyTurn()) {
             whichPlayer = "B";
             checkMovement(whichPlayer);
             playerBlack.setMyTurn(false);
@@ -125,7 +122,7 @@ public class Board {
     }
 
     public void checkMovement(String whichPlayer) {
-        Random r = new Random();
+
 //        for (int i = 6; i < 7; i++) {
 //            for (int y = 0; y < units.length; y++) {
 //                if (units[i][y] != null) {
@@ -144,15 +141,17 @@ public class Board {
 //        availableMoves = units[5][5].availableMoves(units[5][5], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
 
         List<Pos> availableMoves = new ArrayList<>();
-        int whichMove;
 
+        Random r = new Random();
+        int whichMove;
         for (int i = 0; i < units.length; i++) {
-            boolean foundUnit = false;  /// IF WE FIND THE RIGHT UNIT, WE DONT NEED TO LOOP ANYMORE, WHEN THIS IS TRUE, BREAK OUT OF LOOP
+            boolean foundUnit = false;  /// IF WE FIND THE RIGHT UNIT, WE DONT NEED TO LOOP ANYMORE, WHEN THIS IS TRUE, BREAK OUT OF LOOP (USED FURTHER DOWN)
             for (int y = 0; y < units.length; y++) {
                 if (units[i][y] != null) {
                     String type = units[i][y].getType();    // GET TYPE OF UNIT
                     String color = units[i][y].getColor();    // GET COLOR OF UNIT
-                    if (type.contains("QUEEN") && color.contains("WHITE")) {           // IF ITS A QUEEN, (THIS PARTICULAR MOVE)
+
+                    if (type.contains("QUEEN") && color.contains(whichPlayer)) {           // IF ITS A QUEEN, (THIS PARTICULAR MOVE)
 
                         String s = units[i][y].getColor();
                         availableMoves = units[i][y].availableMoves(units[i][y], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
@@ -173,6 +172,25 @@ public class Board {
             if (foundUnit)
                 break;
         }
+
+        // OUTCOMMENTED CODE: CREATING POTENTIAL MOVES FOR ALL UNITS AT ONCE
+//        List<List<Pos>> allUnitsAvailableMoves = new ArrayList<>();
+//        List<List<Pos>> allUnitsAvailableKills = new ArrayList<>();
+//        Map<Pos, List<Pos>> mapOfAvailableMoves = new HashMap<>();
+//
+//        /////////// TRYING TO FIND AND SAVE ALL MOVES FROM ALL CHESS PLAYERS
+//        for (int i = 0; i < units.length; i++) {
+//            for (int y = 0; y < units.length; y++) {
+//                if (units[i][y] != null) {
+//                    String s = units[i][y].getColor();
+//                    availableMoves = units[i][y].availableMoves(units[i][y], units, s);
+//                    if (availableMoves.size() > 0) {
+//                        mapOfAvailableMoves.put(new Pos(units[i][y].pos.getPositionX(), units[i][y].pos.getPositionY()), availableMoves);
+//                    }
+//                }
+//            }
+//        }
+        int i = 0;
     }
 
     public String printBoard() {
