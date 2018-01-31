@@ -8,7 +8,7 @@ import java.util.List;
 public class Pawn extends Unit {
 
     String type = "FARMER";
-    int killValue = 0;
+    int killValue = 1;
     public Pawn() {
 
     }
@@ -20,19 +20,6 @@ public class Pawn extends Unit {
         this.killValue = killValue;
     }
 
-//    @Override
-//    public List<Pos> availableMoves(Unit unit, Unit[][] units, String type) {
-//        List<Pos> availablePos = new ArrayList<>();
-//        int x = unit.pos.getPositionX();
-//        int y = unit.pos.getPositionY();
-//
-//
-////        if (units[x + newPosX][y + newPosY] == null) {
-//////            return availablePos;
-//////        }
-//
-//        return availablePos;
-//    }
 
     @Override
     public List<Pos> createPotentialMoves(Unit unit , Unit[][] units) {

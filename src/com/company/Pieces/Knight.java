@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Knight extends Unit {
 
-    int killValue = 2;
+    int killValue = 3;
     String type = "HORSE";
 
     public String getType() {

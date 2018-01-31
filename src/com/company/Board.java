@@ -109,87 +109,104 @@ public class Board {
 
     public void playerTurn() {
         if (playerWhite.isMyTurn()) {
-            whichPlayer = "W";
+            whichPlayer = "WHITE";
             checkMovement(whichPlayer);
             playerWhite.setMyTurn(false);
             playerBlack.setMyTurn(true);
         } else if (playerBlack.isMyTurn()) {
-            whichPlayer = "B";
+            whichPlayer = "BLACK";
             checkMovement(whichPlayer);
             playerBlack.setMyTurn(false);
             playerWhite.setMyTurn(true);
         }
     }
 
-    public void checkMovement(String whichPlayer) {
+    Map<Pos, List<Pos>> mapOfAvailableMoves = new HashMap<>();
+    Map<Pos, List<Pos>> mapOfAvailableKills = new HashMap<>();
+    List<Pos> availableMoves = new ArrayList<>();
 
-//        for (int i = 6; i < 7; i++) {
+    public void checkMovement(String whichPlayer) {
+        Random r = new Random();
+//        int whichMove;
+//        for (int i = 0; i < units.length; i++) {
+//            boolean foundUnit = false;  /// IF WE FIND THE RIGHT UNIT, WE DONT NEED TO LOOP ANYMORE, WHEN THIS IS TRUE, BREAK OUT OF LOOP (USED FURTHER DOWN)
 //            for (int y = 0; y < units.length; y++) {
 //                if (units[i][y] != null) {
-//                    units[i][y].move(-1, 0, units[i][y], units);
+//                    String type = units[i][y].getType();    // GET TYPE OF UNIT
+//                    String color = units[i][y].getColor();    // GET COLOR OF UNIT
 //
-////                    units[i - 1][y] = units[i][y];
-////                    units[i - 1][y].setPositionX(  units[i][y].getPositionX());
-////                    units[i][y] = null;
+//                    if (type.contains("QUEEN") && color.contains(whichPlayer)) {           // IF ITS A QUEEN, (THIS PARTICULAR MOVE)
 //
+//                        String s = units[i][y].getColor();
+//                        availableMoves = units[i][y].availableMoves(units[i][y], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
+//                        if (availableMoves.size() > 0) {
+//                            whichMove = r.nextInt(availableMoves.size());       /// PICKS A RANDOM MOVE FROM AVAILABLE MOVES
+//
+//                            int newPosX = availableMoves.get(whichMove).getPositionX();       // GETS A MOVES POSITIONS
+//                            int newPosY = availableMoves.get(whichMove).getPositionY();
+//                            units = units[i][y].move(newPosX, newPosY, units[i][y], units); /// SET BOARD TO VALUE AFTER MOVE
+//                            foundUnit = true;           /// CHECKS IF THE UNIT HAS BEEN FOUND
+//                            break;
+//                        } else {
+//                            System.out.println("No available moves to make");
+//                        }
+//                    }
 //                }
 //            }
+//            if (foundUnit)
+//                break;
 //        }
 
+        // OUTCOMMENTED CODE: CREATING POTENTIAL MOVES FOR ALL UNITS AT ONCE
 
-//        String s = units[5][5].getColor();
-//        availableMoves = units[5][5].availableMoves(units[5][5], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
+        ///////// FINDING AND SAVING ALL MOVES FROM ALL CHESS PLAYERS
 
-        List<Pos> availableMoves = new ArrayList<>();
-
-        Random r = new Random();
-        int whichMove;
         for (int i = 0; i < units.length; i++) {
-            boolean foundUnit = false;  /// IF WE FIND THE RIGHT UNIT, WE DONT NEED TO LOOP ANYMORE, WHEN THIS IS TRUE, BREAK OUT OF LOOP (USED FURTHER DOWN)
             for (int y = 0; y < units.length; y++) {
                 if (units[i][y] != null) {
-                    String type = units[i][y].getType();    // GET TYPE OF UNIT
-                    String color = units[i][y].getColor();    // GET COLOR OF UNIT
-
-                    if (type.contains("QUEEN") && color.contains(whichPlayer)) {           // IF ITS A QUEEN, (THIS PARTICULAR MOVE)
-
+                    if (units[i][y].getColor().contains(whichPlayer)) {
                         String s = units[i][y].getColor();
-                        availableMoves = units[i][y].availableMoves(units[i][y], units, s);      /// CHECKS A HARDCODED UNIT FOR NOW
+                        availableMoves = units[i][y].availableMoves(units[i][y], units, s);     // CREATES TEMP LIST OF AVAILABLE MOVES
                         if (availableMoves.size() > 0) {
-                            whichMove = r.nextInt(availableMoves.size());       /// PICKS A RANDOM MOVE FROM AVAILABLE MOVES
-
-                            int newPosX = availableMoves.get(whichMove).getPositionX();       // GETS A MOVES POSITIONS
-                            int newPosY = availableMoves.get(whichMove).getPositionY();
-                            units = units[i][y].move(newPosX, newPosY, units[i][y], units); /// SET BOARD TO VALUE AFTER MOVE
-                            foundUnit = true;           /// CHECKS IF THE UNIT HAS BEEN FOUND
-                            break;
-                        } else {
-                            System.out.println("No available moves to make");
+                            mapOfAvailableMoves.put(new Pos(units[i][y].pos.getPositionX(), units[i][y].pos.getPositionY()), availableMoves);   // FYLL I AVAILABLE MOVES
+                        }
+                        if (units[i][y].getAvailableKills().size() > 0) {
+                            mapOfAvailableKills.put(new Pos(units[i][y].pos.getPositionX(), units[i][y].pos.getPositionY()), units[i][y].getAvailableKills()); // FYLL I AVAILABLE KILLS
                         }
                     }
                 }
             }
-            if (foundUnit)
-                break;
         }
+        int decidedUnitPosX = 0;        /// USED IN MOVE AFTER THE FOR LOOP BELOW!
+        int decidedUnitPosY = 0;
+        int decidedKillPosX = 0;
+        int decidedKillPosY = 0;        /// USED IN MOVE AFTER THE FOR LOOP BELOW!
+        for (Map.Entry<Pos, List<Pos>> entry : mapOfAvailableKills.entrySet()) {
+            int highestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
+            int whichIndexIsHighestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
+            int killPosX = 0;
+            int killPosY = 0;
 
-        // OUTCOMMENTED CODE: CREATING POTENTIAL MOVES FOR ALL UNITS AT ONCE
-//        List<List<Pos>> allUnitsAvailableMoves = new ArrayList<>();
-//        List<List<Pos>> allUnitsAvailableKills = new ArrayList<>();
-//        Map<Pos, List<Pos>> mapOfAvailableMoves = new HashMap<>();
-//
-//        /////////// TRYING TO FIND AND SAVE ALL MOVES FROM ALL CHESS PLAYERS
-//        for (int i = 0; i < units.length; i++) {
-//            for (int y = 0; y < units.length; y++) {
-//                if (units[i][y] != null) {
-//                    String s = units[i][y].getColor();
-//                    availableMoves = units[i][y].availableMoves(units[i][y], units, s);
-//                    if (availableMoves.size() > 0) {
-//                        mapOfAvailableMoves.put(new Pos(units[i][y].pos.getPositionX(), units[i][y].pos.getPositionY()), availableMoves);
-//                    }
-//                }
-//            }
-//        }
+            for (int x = 0; x < entry.getValue().size(); x++) {         /// ON A SPECIFIC UNIT, CHECK ALL KILL POSITIONS
+                killPosX = entry.getValue().get(x).getPositionX() + entry.getKey().getPositionX();
+                killPosY = entry.getValue().get(x).getPositionY() + entry.getKey().getPositionY();
+                if (units[killPosX][killPosY].getKillValue() > highestValue) { // IS THIS ONE THE HIGHTST KILLVALUE?
+                    highestValue = units[killPosX][killPosY].getKillValue();   // SET THIS AS THE NEW HIGHEST VALUE
+                    decidedUnitPosX = entry.getKey().getPositionX();                    // SAVE THE UNITS POSITIONS
+                    decidedUnitPosY = entry.getKey().getPositionY();                    // SAVE THE UNITS POSITIONS
+                    whichIndexIsHighestValue = x;
+                }
+            }
+            decidedKillPosX = entry.getValue().get(whichIndexIsHighestValue).getPositionX();
+            decidedKillPosY = entry.getValue().get(whichIndexIsHighestValue).getPositionY();
+        }
+        units = units[decidedUnitPosX][decidedUnitPosY].move(decidedKillPosX, decidedKillPosY, units[decidedUnitPosX][decidedUnitPosY], units);       // MOVE TO THE BEST KILL POSITION
+        /// EMPTY MAPS FOR THE NEXT CALL
+        mapOfAvailableKills.clear();
+        mapOfAvailableMoves.clear();
+        availableMoves.clear();
+
+
         int i = 0;
     }
 

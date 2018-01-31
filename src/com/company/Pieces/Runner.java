@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Runner extends Unit {
     String type = "RUNNER";
-    int killValue = 3;
+    int killValue = 4;
 
     public String getType() {
         return type;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Tower extends Unit {
     String type = "TOWER";
-    int killValue = 1;
+    int killValue = 2;
 
     public String getType() {
         return type;

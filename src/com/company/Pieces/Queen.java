@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Queen extends Unit {
     String type = "QUEEN";
-    int killValue = 4;
+    int killValue = 5;
     public String getType() {
         return type;
     }
@@ -144,7 +144,6 @@ public class Queen extends Unit {
         }
         /////////////////////////// FOR RUNNING TO SIDE + UP/DOWN
         for (int i = 1; i < 8; i++) {
-
             potentialX = i;
             potentialY = i;
             if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
@@ -166,7 +165,6 @@ public class Queen extends Unit {
         }
         /////////////////////////// FOR RUNNING TO SIDE + UP/DOWN
         for (int i = 1; i < 8; i++) {
-
             potentialX = i;
             potentialY = -i;
             if (inBounds(currentPosX + potentialX, currentPosY + potentialY)) {
