@@ -218,7 +218,6 @@ public class Board {
                     decidedUnitPosY = entry.getKey().getPositionY();                    // SAVE THE UNITS POSITIONS
                     break;
                 }
-
             }
 
             units = units[decidedUnitPosX][decidedUnitPosY].move(decidedNullPosX, decidedNullPosY, units[decidedUnitPosX][decidedUnitPosY], units);
