@@ -26,7 +26,7 @@ public class MainArea extends JFrame {
         setTitle("Text area test");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400, 600);
+        setSize(1200, 1200);
         setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -39,14 +39,14 @@ public class MainArea extends JFrame {
         textLabel = new JLabel("Chess game");
         panel.add(textLabel);
 
-        moveButton = new JButton("White Turn");
+        moveButton = new JButton("White Turn     ");
         panel.add(moveButton);
         moveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                board.checkMovement();
 
-                if(board.playerWhite.isMyTurn())
+                if (board.playerWhite.isMyTurn())
                     moveButton.setText("Black");
                 else
                     moveButton.setText("White");

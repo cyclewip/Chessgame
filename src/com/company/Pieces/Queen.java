@@ -59,7 +59,7 @@ public class Queen extends Unit {
 //    }
 
     @Override
-    public List<Pos> createPotentialMoves(Unit unit, Unit[][] units) {
+    public List<Pos> createPotentialMoves(Unit unit, Unit[][] units) {  //// SAVES ALL MOVES FOR SPECIFIC UNIT, FOR QUEEN, CHECKS ENEMY ASWELL
         availablePos = new ArrayList<>();
         int potentialX;
         int potentialY;

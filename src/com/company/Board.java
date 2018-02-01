@@ -181,26 +181,50 @@ public class Board {
         int decidedUnitPosY = 0;
         int decidedKillPosX = 0;
         int decidedKillPosY = 0;        /// USED IN MOVE AFTER THE FOR LOOP BELOW!
-        for (Map.Entry<Pos, List<Pos>> entry : mapOfAvailableKills.entrySet()) {
-            int highestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
-            int whichIndexIsHighestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
-            int killPosX = 0;
-            int killPosY = 0;
+        int decidedNullPosX = 0;            /// FOR WHEN THERE IS NO KILL POSITION, ONLY NULL ONES AVAILABLE
+        int decidedNullPosY = 0;            /// USED JUST LIKE decidedKillPos
+        int highestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
+        if (mapOfAvailableKills.size() > 0) {
+            for (Map.Entry<Pos, List<Pos>> entry : mapOfAvailableKills.entrySet()) {
 
-            for (int x = 0; x < entry.getValue().size(); x++) {         /// ON A SPECIFIC UNIT, CHECK ALL KILL POSITIONS
-                killPosX = entry.getValue().get(x).getPositionX() + entry.getKey().getPositionX();
-                killPosY = entry.getValue().get(x).getPositionY() + entry.getKey().getPositionY();
-                if (units[killPosX][killPosY].getKillValue() > highestValue) { // IS THIS ONE THE HIGHTST KILLVALUE?
-                    highestValue = units[killPosX][killPosY].getKillValue();   // SET THIS AS THE NEW HIGHEST VALUE
+                int whichIndexIsHighestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
+                int killPosX = 0;
+                int killPosY = 0;
+
+                for (int x = 0; x < entry.getValue().size(); x++) {         /// ON A SPECIFIC UNIT, CHECK ALL KILL POSITIONS
+                    killPosX = entry.getValue().get(x).getPositionX() + entry.getKey().getPositionX();
+                    killPosY = entry.getValue().get(x).getPositionY() + entry.getKey().getPositionY();
+                    if (units[killPosX][killPosY].getKillValue() > highestValue) { // IS THIS ONE THE HIGHTST KILLVALUE?
+                        highestValue = units[killPosX][killPosY].getKillValue();   // SET THIS AS THE NEW HIGHEST VALUE
+                        decidedUnitPosX = entry.getKey().getPositionX();                    // SAVE THE UNITS POSITIONS
+                        decidedUnitPosY = entry.getKey().getPositionY();                    // SAVE THE UNITS POSITIONS
+                        whichIndexIsHighestValue = x;
+                    }
+                }
+                decidedKillPosX = entry.getValue().get(whichIndexIsHighestValue).getPositionX();
+                decidedKillPosY = entry.getValue().get(whichIndexIsHighestValue).getPositionY();
+            }    // MOVE TO THE BEST KILL POSITION
+            units = units[decidedUnitPosX][decidedUnitPosY].move(decidedKillPosX, decidedKillPosY, units[decidedUnitPosX][decidedUnitPosY], units);
+        } else if (mapOfAvailableMoves.size() > 0) {
+            for (Map.Entry<Pos, List<Pos>> entry : mapOfAvailableMoves.entrySet()) {
+                int randIndex = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
+                int nullPosX = 0;
+                int nullPosY = 0;
+                randIndex = r.nextInt(entry.getValue().size());
+                for (int x = 0; x < entry.getValue().size(); x++) {         /// ON A SPECIFIC UNIT, CHECK ALL KILL POSITIONS
+                    decidedNullPosX = entry.getValue().get(randIndex).getPositionX() + entry.getKey().getPositionX();
+                    decidedNullPosY = entry.getValue().get(randIndex).getPositionY() + entry.getKey().getPositionY();
                     decidedUnitPosX = entry.getKey().getPositionX();                    // SAVE THE UNITS POSITIONS
                     decidedUnitPosY = entry.getKey().getPositionY();                    // SAVE THE UNITS POSITIONS
-                    whichIndexIsHighestValue = x;
+                    break;
                 }
+
             }
-            decidedKillPosX = entry.getValue().get(whichIndexIsHighestValue).getPositionX();
-            decidedKillPosY = entry.getValue().get(whichIndexIsHighestValue).getPositionY();
-        }
-        units = units[decidedUnitPosX][decidedUnitPosY].move(decidedKillPosX, decidedKillPosY, units[decidedUnitPosX][decidedUnitPosY], units);       // MOVE TO THE BEST KILL POSITION
+
+            units = units[decidedUnitPosX][decidedUnitPosY].move(decidedNullPosX, decidedNullPosY, units[decidedUnitPosX][decidedUnitPosY], units);
+        }    // MOVE TO THE BEST KILL POSITION
+
+
         /// EMPTY MAPS FOR THE NEXT CALL
         mapOfAvailableKills.clear();
         mapOfAvailableMoves.clear();
@@ -208,6 +232,7 @@ public class Board {
 
 
         int i = 0;
+
     }
 
     public String printBoard() {
