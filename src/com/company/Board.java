@@ -10,6 +10,7 @@ public class Board {
     Player playerWhite = new Player();
     Player playerBlack = new Player();
     private String whichPlayer;
+    private String printMoves;
 
     public void populateBoard() {
         playerWhite.setType("WHITE");
@@ -125,6 +126,10 @@ public class Board {
     Map<Pos, List<Pos>> mapOfAvailableKills = new HashMap<>();
     List<Pos> availableMoves = new ArrayList<>();
 
+    public String getPrintMoves() {
+        return printMoves;
+    }
+
     public void checkMovement(String whichPlayer) {
         Random r = new Random();
 //        int whichMove;
@@ -160,7 +165,6 @@ public class Board {
         // OUTCOMMENTED CODE: CREATING POTENTIAL MOVES FOR ALL UNITS AT ONCE
 
         ///////// FINDING AND SAVING ALL MOVES FROM ALL CHESS PLAYERS
-
         for (int i = 0; i < units.length; i++) {
             for (int y = 0; y < units.length; y++) {
                 if (units[i][y] != null) {
@@ -184,10 +188,10 @@ public class Board {
         int decidedNullPosX = 0;            /// FOR WHEN THERE IS NO KILL POSITION, ONLY NULL ONES AVAILABLE
         int decidedNullPosY = 0;            /// USED JUST LIKE decidedKillPos
         int highestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
+        int whichIndexIsHighestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
         if (mapOfAvailableKills.size() > 0) {
             for (Map.Entry<Pos, List<Pos>> entry : mapOfAvailableKills.entrySet()) {
 
-                int whichIndexIsHighestValue = 0; //// SPARAR UNDAN VILKET HIGHEST VALUE ÄR BÄST MOVE, (HÖGST KILL)
                 int killPosX = 0;
                 int killPosY = 0;
 
@@ -198,12 +202,20 @@ public class Board {
                         highestValue = units[killPosX][killPosY].getKillValue();   // SET THIS AS THE NEW HIGHEST VALUE
                         decidedUnitPosX = entry.getKey().getPositionX();                    // SAVE THE UNITS POSITIONS
                         decidedUnitPosY = entry.getKey().getPositionY();                    // SAVE THE UNITS POSITIONS
+                        decidedKillPosX = entry.getValue().get(x).getPositionX();            /// WHICH ISNED IS WRONG!!!
+                        decidedKillPosY = entry.getValue().get(x).getPositionY();
                         whichIndexIsHighestValue = x;
                     }
                 }
-                decidedKillPosX = entry.getValue().get(whichIndexIsHighestValue).getPositionX();
-                decidedKillPosY = entry.getValue().get(whichIndexIsHighestValue).getPositionY();
+
             }    // MOVE TO THE BEST KILL POSITION
+
+//            printMoves = printMoves(units[decidedUnitPosX][decidedUnitPosY].getType(), units[decidedUnitPosX][decidedUnitPosY].getColor(),
+//                    decidedUnitPosX, decidedUnitPosY,
+//                    units[decidedKillPosX][decidedKillPosY].getType(), units[decidedKillPosX][decidedKillPosY].getColor(),
+//                    decidedKillPosX, decidedKillPosY);
+
+
             units = units[decidedUnitPosX][decidedUnitPosY].move(decidedKillPosX, decidedKillPosY, units[decidedUnitPosX][decidedUnitPosY], units);
         } else if (mapOfAvailableMoves.size() > 0) {
             for (Map.Entry<Pos, List<Pos>> entry : mapOfAvailableMoves.entrySet()) {
@@ -219,7 +231,6 @@ public class Board {
                     break;
                 }
             }
-
             units = units[decidedUnitPosX][decidedUnitPosY].move(decidedNullPosX, decidedNullPosY, units[decidedUnitPosX][decidedUnitPosY], units);
         }    // MOVE TO THE BEST KILL POSITION
 
@@ -228,7 +239,6 @@ public class Board {
         mapOfAvailableKills.clear();
         mapOfAvailableMoves.clear();
         availableMoves.clear();
-
 
         int i = 0;
 
@@ -260,7 +270,13 @@ public class Board {
                     outPutString += "\n";
             }
         }
-//        System.out.println(units);
         return outPutString;
+    }
+
+    public String printMoves(String currentType, String currentColor, int decidedUnitPosX, int decidedUnitPosY, String decidedType, String decidedColor, int decidedKillPosX, int decidedKillPosY) {
+        String result = "Current type: " + currentType + "current Color: " + currentColor + " Pos X: " + decidedUnitPosX + "Pos Y:" + decidedUnitPosY
+                + "Moves to:" + "Decided type: " + decidedType + "Decided Color: " + decidedColor + " Pos X: " + decidedKillPosX + "Pos Y:" + decidedKillPosY;
+
+        return result;
     }
 }

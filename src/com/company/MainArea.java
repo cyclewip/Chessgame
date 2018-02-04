@@ -11,8 +11,10 @@ public class MainArea extends JFrame {
     private JButton boardButton;
     private JButton startButton;
     private JLabel textLabel;
+    private JLabel[][] labelGrid;
     private JTextField moveTextField;
     private JTextArea mapTextArea;
+    private JTextArea chessMoveArea;
     private JScrollPane scrollPane;
 
     private Board board;
@@ -21,7 +23,6 @@ public class MainArea extends JFrame {
         createView();
         board = new Board();
         board.populateBoard();
-
 
         setTitle("Text area test");
 
@@ -53,10 +54,11 @@ public class MainArea extends JFrame {
                 board.playerTurn();
 
                 mapTextArea.setText(board.printBoard());
+//                chessMoveArea.setText(board.getPrintMoves());
             }
         });
 
-        boardButton = new JButton("Check board");
+        boardButton = new JButton("Start board");
         panel.add(boardButton);
 
         boardButton.addActionListener(new ActionListener() {
@@ -80,6 +82,16 @@ public class MainArea extends JFrame {
         JScrollPane scrollPane = new JScrollPane(mapTextArea);
         scrollPane.setPreferredSize(new Dimension(350, 150));
         panel.add(scrollPane);
+
+        chessMoveArea = new JTextArea("Hej hej");
+        chessMoveArea.setEditable(false);
+        chessMoveArea.setLineWrap(true);
+        chessMoveArea.setWrapStyleWord(true);
+        chessMoveArea.setColumns(8);
+        chessMoveArea.setRows(8);
+        panel.add(chessMoveArea);
+
+        labelGrid = new JLabel[8][8];
     }
 
     public static void main(String[] args) {

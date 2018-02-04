@@ -14,17 +14,16 @@ public class Knight extends Unit {
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }
     public int getKillValue() {
         return killValue;
     }
-
     public void setKillValue(int killValue) {
         this.killValue = killValue;
     }
+
     public Knight() {
 
     }
